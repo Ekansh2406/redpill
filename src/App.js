@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import FileUploader from "./pages/FileUploader";
+import "./App.css";
+import particlesJS from "particles.js";
+import Header from "./components/Header"; // Import Header
 
 function App() {
+  useEffect(() => {
+    if (window.particlesJS) {
+      window.particlesJS.load("particles-js", "/particles-config.json", function () {
+        console.log("Particles.js loaded successfully!");
+      });
+    } else {
+      console.error("particlesJS is not available.");
+    }
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header /> {/* Add Header Component */}
+      <div id="particles-js"></div>
+      {/* <h2 className="app-title">File Upload System</h2> */}
+      <div className="upload-container">
+        <FileUploader />
+      </div>
     </div>
   );
 }

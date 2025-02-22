@@ -1,0 +1,4 @@
+backend\yarfiles\crypto_signatures.yar
+backend\yarfiles\CVE-2010-0805.yar
+backend\yarfiles\CVE-2010-0887.yar
+backend\yarfiles\CVE-2010-1297.yar

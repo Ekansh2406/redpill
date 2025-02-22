@@ -1,38 +1,69 @@
+/* General styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(45deg, #9a0da1, #194ad2);
+}
+
+/* Particles background */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* App container */
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  position: relative;
+  z-index: 1;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.app-title {
+  font-size: 2rem;
+  margin-top: 20px;
+  font-weight: bold;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* File uploader container */
+.upload-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.file-uploader {
+  text-align: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Drop zone styling */
+.drop-zone {
+  border: 2px dashed white;
+  padding: 40px;
+  cursor: pointer;
+  width: 60%;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.drop-zone:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Error message */
+.error {
+  color: #ff5252;
+  font-weight: bold;
 }
