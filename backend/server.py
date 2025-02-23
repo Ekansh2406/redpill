@@ -1,16 +1,13 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
-
-# Import your existing processing function
-from Hack import process_file  
+from hhhh import process_file  
 
 app = Flask(__name__)
 CORS(app)
 
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
 ALLOWED_EXTENSIONS = {"pdf", "xls", "xlsx", "com", "elf"}
 
 def allowed_file(filename):
@@ -35,7 +32,24 @@ def upload_file():
         output = process_file(file_path)
         return jsonify({
             "message": "File processed successfully",
-            "results": output  # Changed key from 'output' to 'results'
+            "results": output
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# New endpoint to scan a file given its path via JSON input.
+@app.route("/scan", methods=["POST"])
+def scan_file_route():
+    data = request.get_json()
+    if not data or "file_path" not in data:
+        return jsonify({"error": "No file path provided"}), 400
+
+    file_path = data["file_path"]
+    try:
+        output = process_file(file_path)
+        return jsonify({
+            "message": "File scanned successfully",
+            "results": output
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
