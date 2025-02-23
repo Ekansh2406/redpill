@@ -3,26 +3,25 @@ import FileUploader from "./pages/FileUploader";
 import "./App.css";
 import Particles from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
-import Header from "./components/Header"; // Import Header
+import Header from "./components/Header";
 
 function App() {
   useEffect(() => {
     if (window.particlesJS) {
-      window.particlesJS.load("particles-js", "/particles-config.json", function () {
+      window.particlesJS.load("particles-js", "/particles-config.json", () => {
         console.log("Particles.js loaded successfully!");
       });
-    } else {
-      console.error("particlesJS is not available.");
     }
   }, []);
 
   return (
     <div className="App">
-      <Header /> {/* Add Header Component */}
+      <Header />
       <div id="particles-js"></div>
-      {/* <h2 className="app-title">File Upload System</h2> */}
       <div className="upload-container">
-        <FileUploader />
+        <div className="content-wrapper">
+          <FileUploader />
+        </div>
       </div>
     </div>
   );

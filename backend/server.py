@@ -11,7 +11,7 @@ CORS(app)
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-ALLOWED_EXTENSIONS = {"pdf", "xls", "xlsx"}
+ALLOWED_EXTENSIONS = {"pdf", "xls", "xlsx", "com", "elf"}
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -31,10 +31,14 @@ def upload_file():
     file_path = os.path.join(UPLOAD_FOLDER, file.filename)
     file.save(file_path)
 
-    # Process the uploaded file
-    output = process_file(file_path)
-
-    return jsonify({"message": "File processed successfully", "output": output})
+    try:
+        output = process_file(file_path)
+        return jsonify({
+            "message": "File processed successfully",
+            "results": output  # Changed key from 'output' to 'results'
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

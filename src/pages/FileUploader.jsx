@@ -9,7 +9,7 @@ const FileUploader = () => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
-
+  const [results, setResults] = useState([]);
   const onDrop = (acceptedFiles, rejectedFiles) => {
     if (rejectedFiles.length > 0) {
       setError("Invalid file type or size exceeds 500MB");
@@ -26,7 +26,8 @@ const FileUploader = () => {
     accept: {
       "application/pdf": [".pdf"],
       "application/vnd.ms-excel": [".xls"],
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [".xlsx"]
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [".xlsx"],
+	  "application/octet-stream": [".com", ".elf"]
     },
   });
 
@@ -47,6 +48,7 @@ const FileUploader = () => {
         },
       });
       setMessage(response.data.message);
+	  setResults(response.data.results || []);
       setError("");
       setFile(null); // Optional: clear the selected file after upload
     } catch (err) {
@@ -76,6 +78,35 @@ const FileUploader = () => {
       <button onClick={uploadFile} style={{ marginTop: "20px" }}>
         Upload
       </button>
+	  // In the uploadFile function, update state handling:
+{results.length > 0 && (
+  <div style={{ marginTop: "20px", textAlign: "left" }}>
+    <h4>Scan Results:</h4>
+    {results.map((ruleResult, index) => (
+      <div key={index} style={{ marginBottom: "20px" }}>
+        <h5>Rule File: {ruleResult.rule_file}</h5>
+        {ruleResult.matches && ruleResult.matches.length > 0 ? (
+          ruleResult.matches.map((match, idx) => (
+            <div key={idx} style={{ marginLeft: "15px" }}>
+              <p>Rule: {match.rule}</p>
+              <p>Tags: {match.tags.join(", ")}</p>
+              <p>Strings Found:</p>
+              <ul>
+                {match.strings.map((s, i) => (
+                  <li key={i}>
+                    Offset: {s.offset}, Identifier: {s.identifier}, Data: {s.data}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        ) : (
+          <p>No matches found</p>
+        )}
+      </div>
+    ))}
+  </div>
+)}
     </div>
   );
 };
