@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import FileUploader from "./pages/FileUploader";
 import "./App.css";
-import particlesJS from "particles.js";
+import Particles from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
 import Header from "./components/Header"; // Import Header
 
 function App() {
